@@ -28,7 +28,7 @@ if [ "x$KAFKA_LOG4J_OPTS" = "x" ]; then
 fi
 
 if [ "x$KAFKA_HEAP_OPTS" = "x" ]; then
-    export KAFKA_HEAP_OPTS="-Xmx<%- @kafka::params::heap_size -%> -Xms<%- @kafka::params::heap_size -%>"
+    export KAFKA_HEAP_OPTS="-Xmx<%- @heap_size -%> -Xms<%- @kafka::params::heap_size -%>"
 fi
 
 EXTRA_ARGS="-name kafkaServer -loggc"
