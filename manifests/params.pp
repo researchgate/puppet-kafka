@@ -16,6 +16,10 @@ class kafka::params {
   $install_java = true
   $install_dir = "/opt/kafka-${scala_version}-${version}"
 
+  #Heap and GC related params - default values
+  $heap_size = '1G'
+  $jvm_performance_options = '-server -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSScavengeBeforeRemark -XX:+DisableExplicitGC -Djava.awt.headless=true'
+
   $service_restart = true
 
   #http://kafka.apache.org/documentation.html#brokerconfigs
