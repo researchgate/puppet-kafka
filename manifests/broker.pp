@@ -47,6 +47,8 @@
 #
 class kafka::broker (
   $version = $kafka::params::version,
+  $heap_size = $kafka::params::heap_size,
+  $jvm_performance_options = $kafka::params::jvm_performance_options,
   $scala_version = $kafka::params::scala_version,
   $install_dir = $kafka::params::install_dir,
   $mirror_url = $kafka::params::mirror_url,
