@@ -19,6 +19,12 @@ class kafka::broker::service {
     content => template('kafka/init.erb')
   }
 
+  file { '/opt/kafka/bin/kafka-run-class.sh':
+    ensure  => present,
+    mode    => '0755',
+    content => template('kafka/kafka-run-class.sh.erb')
+  }
+
   service { 'kafka':
     ensure     => running,
     enable     => true,
