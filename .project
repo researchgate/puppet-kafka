@@ -10,6 +10,7 @@
         <project>puppetlabs-concat</project>
         <project>puppetlabs-apache</project>
         <project>puppetlabs-apt</project>
+        <project>puppetlabs-firewall</project>
         <project>theforeman-foreman</project>
         <project>theforeman-tftp</project>
         <project>theforeman-dhcp</project>
@@ -60,7 +61,6 @@
         <project>rg-entityconveyor</project>
         <project>rg-exstream</project>
         <project>rg-exstream_filter</project>
-        <project>rg-firewall</project>
         <project>rg-firewall_rg</project>
         <project>rg-freeradius</project>
         <project>rg-git</project>
