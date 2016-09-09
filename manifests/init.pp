@@ -128,5 +128,11 @@ class kafka (
     require => [ Exec['download-kafka-package'], File['kafka-app-dir'] ],
     user    => 'kafka',
     path    => ['/bin', '/usr/bin', '/usr/sbin']
-  }
+  } ->
+
+    file_line { 'you are way to noisy sir how about you calm down':
+        path    => '/opt/kafka/config/log4j.properties',
+        line    => 'log4j.rootLogger=WARN, stdout',
+        match   => '^log4j.rootLogger=INFO, stdout';
+    }
 }
