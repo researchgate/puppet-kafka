@@ -130,9 +130,18 @@ class kafka (
     path    => ['/bin', '/usr/bin', '/usr/sbin']
   } ->
 
-    file_line { 'you are way to noisy sir how about you calm down':
-        path    => '/opt/kafka/config/log4j.properties',
-        line    => 'log4j.rootLogger=WARN, stdout',
-        match   => '^log4j.rootLogger=INFO, stdout';
+    file_line {
+        'you are way too noisy sir please calm down 01':
+            path    => '/opt/kafka/config/log4j.properties',
+            line    => 'log4j.rootLogger=WARN, stdout',
+            match   => '^log4j.rootLogger=INFO, stdout';
+        'you are way too noisy sir please calm down 02':
+            path    => '/opt/kafka/config/log4j.properties',
+            line    => 'log4j.logger.kafka=WARN, kafkaAppender',
+            match   => '^log4j.logger.kafka=INFO, kafkaAppender';
+        'you are way too noisy sir please calm down 03':
+            path    => '/opt/kafka/config/log4j.properties',
+            line    => 'log4j.logger.kafka.log.LogCleaner=WARN, cleanerAppender',
+            match   => '^log4j.logger.kafka.log.LogCleaner=INFO, cleanerAppender';
     }
 }
