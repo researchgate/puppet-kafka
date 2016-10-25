@@ -31,16 +31,21 @@
 # [*package_dir*]
 # The directory to install kafka.
 #
+# [*manage_home*]
+# Whether or not we should manage the kafka users
+# home directory (create and remove with $ensure).
+#
 # === Examples
 #
 #
 class kafka (
-  $version = $kafka::params::version,
+  $version       = $kafka::params::version,
   $scala_version = $kafka::params::scala_version,
-  $install_dir = '',
-  $mirror_url = $kafka::params::mirror_url,
-  $install_java = $kafka::params::install_java,
-  $package_dir = $kafka::params::package_dir
+  $install_dir   = $kafka::params::install_dir,
+  $mirror_url    = $kafka::params::mirror_url,
+  $install_java  = $kafka::params::install_java,
+  $package_dir   = $kafka::params::package_dir,
+  $manage_home   = $kafka::params::manage_home
 ) inherits kafka::params {
 
   validate_re($::osfamily, 'RedHat|Debian\b', "${::operatingsystem} not supported")
@@ -48,18 +53,13 @@ class kafka (
   #validate_re($scala_version, '\d+\.\d+\.\d+\.*\d*', "${version} does not match semver")
   #validate_absolute_path($install_dir)
   validate_re($mirror_url, '^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$', "${mirror_url} is not a valid url")
-  validate_bool($install_java)
+  validate_bool($install_java, $manage_home)
   validate_absolute_path($package_dir)
 
-  $basefilename = "kafka_${scala_version}-${version}.tgz"
-  $basename = regsubst($basefilename, '(.+)\.tgz$', '\1')
-  $package_url = "${mirror_url}/kafka/${version}/${basefilename}"
-
-  if $install_dir == '' {
-    $install_directory = "/opt/kafka-${scala_version}-${version}"
-  } else {
-    $install_directory = $install_dir
-  }
+  $basefilename      = "kafka_${scala_version}-${version}.tgz"
+  $basename          = regsubst($basefilename, '(.+)\.tgz$', '\1')
+  $package_url       = "${mirror_url}/kafka/${version}/${basefilename}"
+  $install_directory = $install_dir
 
   if $install_java {
     class { 'java':
@@ -75,12 +75,12 @@ class kafka (
 
   group { 'kafka':
     ensure => present
-  }
+  } ->
 
   user { 'kafka':
-    ensure  => present,
-    shell   => '/bin/bash',
-    require => Group['kafka']
+    ensure      => present,
+    shell       => '/bin/bash',
+    managehome  => $manage_home,
   }
 
   file { $package_dir:
