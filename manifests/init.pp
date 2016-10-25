@@ -85,7 +85,7 @@ class kafka (
   user { 'kafka':
     ensure      => present,
     shell       => '/bin/bash',
-    home        => '/home/kafka,
+    home        => '/home/kafka',
     managehome  => $manage_home,
   }
 
