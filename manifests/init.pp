@@ -87,6 +87,13 @@ class kafka (
     shell       => '/bin/bash',
     home        => '/home/kafka',
     managehome  => $manage_home,
+  } ->
+
+  file {  '/home/kafka':
+    ensure  => directory,
+    owner   => 'kafka',
+    group   => 'kafka',
+    mode    => '0755',
   }
 
   file { $package_dir:
