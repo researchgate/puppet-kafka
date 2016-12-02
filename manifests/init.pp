@@ -141,20 +141,20 @@ class kafka (
     require => [ Exec['download-kafka-package'], File['kafka-app-dir'] ],
     user    => 'kafka',
     path    => ['/bin', '/usr/bin', '/usr/sbin']
-  } ->
+  }
 
-    file_line {
-        'you are way too noisy sir please calm down 01':
-            path    => '/opt/kafka/config/log4j.properties',
-            line    => 'log4j.rootLogger=FATAL, stdout',
-            match   => '^log4j.rootLogger=INFO, stdout';
-        'you are way too noisy sir please calm down 02':
-            path    => '/opt/kafka/config/log4j.properties',
-            line    => 'log4j.logger.kafka=FATAL, kafkaAppender',
-            match   => '^log4j.logger.kafka=INFO, kafkaAppender';
-        'you are way too noisy sir please calm down 03':
-            path    => '/opt/kafka/config/log4j.properties',
-            line    => 'log4j.logger.kafka.log.LogCleaner=FATAL, cleanerAppender',
-            match   => '^log4j.logger.kafka.log.LogCleaner=INFO, cleanerAppender';
-    }
+#    file_line {
+#        'you are way too noisy sir please calm down 01':
+#            path    => '/opt/kafka/config/log4j.properties',
+#            line    => 'log4j.rootLogger=FATAL, stdout',
+#            match   => '^log4j.rootLogger=INFO, stdout';
+#        'you are way too noisy sir please calm down 02':
+#            path    => '/opt/kafka/config/log4j.properties',
+#            line    => 'log4j.logger.kafka=FATAL, kafkaAppender',
+#            match   => '^log4j.logger.kafka=INFO, kafkaAppender';
+#        'you are way too noisy sir please calm down 03':
+#            path    => '/opt/kafka/config/log4j.properties',
+#            line    => 'log4j.logger.kafka.log.LogCleaner=FATAL, cleanerAppender',
+#            match   => '^log4j.logger.kafka.log.LogCleaner=INFO, cleanerAppender';
+#    }
 }
